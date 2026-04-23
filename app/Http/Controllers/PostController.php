@@ -29,12 +29,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'title' => $request->title,
-            'content' => $request->content
-        ];
+        $validated = $request->validate([
+            'title' => 'required|min:2|max:255',
+            'content' => 'required|min:3',
+        ]);
 
-        Post::create($data);
+        Post::create($validated);
 
         return redirect('/posts');
     }
@@ -42,28 +42,24 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        $post = Post::find($id);
         return view('posts.show', ['post' => $post]);
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $post = Post::find($id);
         return view('posts.edit', ['post' => $post]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        $post = Post::find($id);
-
         $data = [
             'title' => $request->title,
             'content' => $request->content
@@ -77,10 +73,21 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        $post = Post::find($id);
         $post->delete();
         return redirect('/posts');
-    }    
+    }
+
+    public function updateStatus(Request $request, Post $post)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:draft,published,archived',
+        ]);
+
+        $post->status = $validated['status'];
+        $post->save();
+
+        return redirect()->back()->with('success', 'Status updated');
+    }
 }
