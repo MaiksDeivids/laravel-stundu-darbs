@@ -1,4 +1,4 @@
-<x-app-layout>
+
     <h1>Create post</h1>
 
     <form action="{{ route('posts.store') }}" method="post">
@@ -21,6 +21,6 @@
 
         <input type="submit" value="Create">
     </form>
-</x-app-layout>
+
 
 
