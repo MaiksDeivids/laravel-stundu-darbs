@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
 class Event
 {
+    
+
+
     public string $title;
     public string $year;
     public int $attendeeCount;
@@ -33,6 +35,8 @@ class Event
         "; Datums: " . $this->year . "\n" .
         "; Dalībnieku skaits: " . $this->attendeeCount . "\n";
     }
+
+    protected $fillable = ['title', 'year', 'attendeeCount'];
 }
 
 $event1 = new Event("Vasaras Koncerts", "2024-08-15", 0);

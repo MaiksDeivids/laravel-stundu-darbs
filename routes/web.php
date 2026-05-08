@@ -3,6 +3,7 @@ use App\Models\Event;
 use App\Models\Car;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\EventController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,14 +35,12 @@ Route::get('/display-car', function(){
 
         });
 
-
+Route::get('events/show', [EventController::class, 'show']);
 Route::get('display-event', function(){
 
 $event1 = new Event("Vasaras Koncerts", "2024-08-15", 0);
-$event1->getInfo();
 $event1->addAttendee(1500);
 $event2 = new Event("Rīgas Maratons", "2025-04-20", 1500);
-$event2->getInfo();
 
     echo "<h1>Events: </h1>
         <ul>
