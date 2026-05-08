@@ -1,4 +1,5 @@
 <?php
+use App\Models\Event;
 use App\Models\Car;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -32,5 +33,32 @@ Route::get('/display-car', function(){
         </ul>";
 
         });
+
+
+Route::get('display-event', function(){
+
+$event1 = new Event("Vasaras Koncerts", "2024-08-15", 0);
+$event1->getInfo();
+$event1->addAttendee(1500);
+$event2 = new Event("Rīgas Maratons", "2025-04-20", 1500);
+$event2->getInfo();
+
+    echo "<h1>Events: </h1>
+        <ul>
+            <li><strong>Nosaukums: {$event1->title}</strong></li>
+            <li><strong>Datums: {$event1->year}</strong></li>
+            <li><strong>Dalībnieku skaits: {$event1->attendeeCount}</strong></li>
+        </ul>
+        <ul>
+            <li><strong>Nosaukums: {$event2->title}</strong></li>
+            <li><strong>Datums: {$event2->year}</strong></li>
+            <li><strong>Dalībnieku skaits: {$event2->attendeeCount}</strong></li>
+        </ul>";
+
+});
+
 ?>
+
+
+
 
