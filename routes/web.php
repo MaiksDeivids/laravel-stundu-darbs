@@ -56,6 +56,9 @@ $event2 = new Event("Rīgas Maratons", "2025-04-20", 1500);
 
 });
 
+
+Route::get('display-events', [EventController::class, 'index']);
+
 ?>
 
 
